@@ -11,6 +11,6 @@ Here is a little list of the different data practicals: (W2) means it is the sec
 + [For ever and ever (W5)](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W5.md)
 + [Of code and coffee (W6)](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W6.md)
 + [Suicide and happiness (W7)](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W7.md) (spoiler: being life-satisfied does not prevent from suicide)
-+ [You can probably drinks on weekdays and don't fail](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W8.md)
++ [You can probably drinks on weekdays and don't fail (W8)](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W8.md)
 
 Hope you'll have fun. I did. Sometimes.
