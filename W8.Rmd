@@ -1,0 +1,100 @@
+---
+title: "(W8) Linear Model"
+author: "Elisa Simon"
+date: '2022-08-31'
+output: github_document
+bibliography: references.bib
+---
+
+# Dataset: Student Alcohol Consumption
+
+The data set contains information concerning alcohol consumption, sociodemographic status, and school-related topics (source: @ortiz_student_2016)
+
+```{r, include=FALSE}
+library(readr)
+library(readxl)
+library(janitor)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+student_por <- read_csv("student-por.csv")
+```
+
+# Research questions and variables of interest
+
+In this report, I aim to know whether there is a (causal) relationship between alcohol consumption on the weekdays and the number of failures one experiments in his study journey.
+
++ __H1__: There is a correlation between weekdays alcohol consumption and the number of failures.
++ __H2__: The number of failures can be predict based on weekday alcohol consumption.
+
+
+## Variables of interest
+
+__Explanatory variable__ : Dalc - weekdays alcohol consumption
+
++ numeric / quantitative discrete
++ (from 1 - very low, to 5 - very high)
+
+__Response variable__ : failures - absolute number of past class failures
+
++ numeric / quantitative discrete
+
+
+# Statistical investigations
+
+## Are weekday alcohol consumption and number of failures correlated ?
+
+First, we can look graphically if there's an evident correlation between the two variables
+
+```{r, echo=FALSE}
+ggplot(student_por, aes(Dalc, failures)) +
+  geom_jitter() +
+  theme_bw() +
+  labs(x = "Weekdays alcohol consumption frequency (from 1 - very low to 5 - very high)", y = "Number of past class failures",
+       title = "Weekdays alcohol consumption and number of failures")
+  
+```
+
+Visually, it looks like there is a concentration of people that don't fail nor drink on weekdays. But, the correlation is not evident. Therefore, we should now run a correlation's test. As at least one of the variables is not continuous, we should use the Spearman's correlation test.
+
+```{r, include=FALSE}
+cor <- cor.test(student_por$Dalc, student_por$failures, method="spearman")
+```
+```{r, echo=FALSE}
+cor
+```
+
+The Spearman's correlation test suggests that
+
++ There is a (weak) positive correlation between alcohol consumption and the number of failures (rho = 0.1088617)
++ The test is significant: the true correlation is not equal to 0 (p-value = 0.0055)
+
+For now, we cannot say that the correlation imply a causation. 
+
+### Linear regression failures ~ Dalc => Assumptions
+
+__Independence of observations__: we don't care because we only have one explanatory and one response variables.
+
+__Normality__ of the dependent variable can be checked with an histogram. 
+
+```{r, echo=FALSE}
+hist(student_por$failures)
+```
+
+Well, according to the histogram, we cannot use a Linear regression model. Let's run a shapiro test of normality just to be sure.
+
+```{r, include=FALSE}
+shapiro.test(student_por$failures)
+```
+
+The Shapiro-Wilk normality test also suggests a non normal distribution (p-value < 2.2e-16).
+
+However, the __linearity__ or monotonicity of the relationship is also not evident, as we can see:
+
+```{r, echo=FALSE}
+plot(failures ~ Dalc, data=student_por)
+```
+
+So unfortunately, our data cannot be linearly modeled.
+
+# References

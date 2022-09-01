@@ -1,0 +1,56 @@
+---
+title: "(W2) Writing Reports"
+author: "Elisa Simon"
+date: "8/30/2022"
+output: github_document
+bibliography: references.bib
+---
+
+# Of flower and coffee
+
+This report exists to show off my abilities to ...
+
++ create a bullet list
+
++ insert a picture
+
++ use some text formatting, such as _italics_ or __bold__
+
++ load an R library to use
+
++ load some data and display them within a code block
+
++ add a bibliography
+
+
+## Picture of a cup of coffee
+
+Here is a photography of a cup of black coffee by a guy called Julius @schorzman_tasse_2005.
+
+![](https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG)
+
+## the great ggplot2 package
+
+Here is how to load the ggplot2 package that is very usefull for data visualization
+
+```{r data}
+library(ggplot2)
+```
+
+## the R dataset
+
+R has some built-in datasets. Here is how to see our options in the package 'datasets':
+```{r, eval = FALSE}
+data()
+```
+
+I choose the dataset 'iris' (Edgar Anderson's Iris Data). It provides data about sepal and pedal length and width of different species of flowers: the first rows are displayed below:
+
+```{r}
+data(iris)
+head(iris)
+```
+
+# References
+
+

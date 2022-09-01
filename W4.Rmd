@@ -1,0 +1,169 @@
+---
+title: "(W4) Data Wrangling"
+author: "Elisa Simon"
+date: "8/31/2022"
+output: github_document
+bibliography: references.bib
+---
+
+# More chocolate
+
+For the first part of this report, I choose the data set __chocolate__ (@narejo_chocolate_2020)
+
+As the names of the variables are quite problematic, I used the `clean_names()` function (from the janitor package) to make them more R-friendly.
+
+The aim of this data practical is to show that I can wrangle data. Therefore, a first step is to install the dplyr package.
+
+Below are the first rows of the data set:
+
+```{r, include=FALSE}
+options(repos = list(CRAN="http://cran.rstudio.com/"))
+install.packages("readr")
+install.packages("janitor")
+library(readr)
+library(janitor)
+chocolate <- read_csv("chocolate.csv")
+clean_chocolate <- clean_names(chocolate)
+head(chocolate)
+install.packages("dplyr")
+library(dplyr)
+```
+
+```{r, echo=FALSE}
+head(clean_chocolate)
+```
+
+## Data preparation
+
+### Filter the data by two variables
+
+Here I choose to filter by the company location variable (Switzerland and Belgium).
+
+```{r}
+choose_chocolate <- clean_chocolate%>%
+  filter(company_location%in%c("Switzerland", "Belgium"))
+```
+
+### Select a subset of columns
+
+Then I decided to select three columns: cocoa percent, company location, and rating.
+
+```{r}
+choose_chocolate <- choose_chocolate %>%
+  select(cocoa_percent, company_location, rating)
+```
+
+### Bonus: the lazy (but cleaner) way
+```{r, eval = FALSE}
+choose_chocolate <- choose_chocolate %>%
+  filter(company_location%in%c("Switzerland", "Belgium")) %>%
+  select(cocoa_percent, company_location, rating)
+```
+
+## Swiss and Belgian chocolate
+
+### First few rows
+```{r}
+head(choose_chocolate)
+```
+
+### Last few rows
+```{r}
+tail(choose_chocolate)
+```
+### Structure
+```{r}
+str(choose_chocolate)
+```
+
+## swiss chocolate vs. belgian chocolate
+
+I arranged the data by rating.
+
+One can observe that Belgium appears 6 times and Switzerland 4 times in the top ten.
+So far, it looks like belgian is better than swiss chocolate.
+
+```{r, echo=FALSE}
+chocolate_by_rating <- choose_chocolate %>% arrange(desc(rating))
+chocolate_by_rating
+```
+### Results summarize
+
+So... despite what one could predict from the top ten, it finally looks like the mean rating of swiss chocolate is higher than the belgian one.
+```{r, echo=FALSE}
+sum_chocolate <- choose_chocolate %>%
+  group_by(company_location)%>%
+  summarize(rate_mean = mean(rating))
+head(sum_chocolate)
+```
+
+## Filter out NAs
+
+NAs can be removed with the dplyr `filter(!is.na())` function.
+But actually the `is.na()` shows that the data set includes no NA.
+```{r, eval=FALSE}
+nona_choose_chocolate <- choose_chocolate%>%
+  filter(!is.na(company_location)) %>%
+  filter(!is.na(cocoa_percent)) %>%
+  filter(!is.na(rating))
+  
+is.na(choose_chocolate)
+```
+
+# Suicide and Happiness
+
+For the second part of this report, I load two data sets :
+
++ the first one provides the annual number of deaths by cause in various countries and can be retrieved in @ritchie_suicide_2014.
++ the second one is about happiness and life satisfaction and can be retrieved in @ortiz-ospina_happiness_2013.
+
+## Annual number of deaths by cause => suicide in 2005
+
+```{r, include=FALSE}
+annualnumberofdeaths <- read_csv("annual-number-of-deaths-by-cause.csv")
+annualnumberofdeaths <- clean_names(annualnumberofdeaths)
+suicide <- annualnumberofdeaths %>% 
+  select(entity, year, suicide = deaths_self_harm_sex_both_age_all_ages_number) %>%
+  filter(year == "2005")
+suicide
+```
+
+```{r}
+head(annualnumberofdeaths)
+head(suicide)
+```
+
+
+## Happiness => Happiness in 2005
+```{r, include=FALSE}
+happiness_raw <- read_csv("happiness-cantril-ladder.csv")
+happiness_raw <- clean_names(happiness_raw)
+happiness_raw
+happiness <- happiness_raw %>%
+  select(entity, year, happiness = life_satisfaction_in_cantril_ladder_world_happiness_report_2022) %>%
+  filter(year == "2005")
+happiness
+```
+
+```{r}
+head(happiness_raw)
+head(happiness)
+```
+
+## Suicide and happiness
+
+In here I used the `merge()` function to join the suicide and happiness data sets.
++ Only the countries (entity) present in both data sets are returned.
++ Only the variables entity, suicide, and happiness are selected.
+
+```{r, include=FALSE}
+suicide_happiness <- merge(suicide, happiness, by.x = "entity", by.y = "entity", sort = TRUE)
+suicide_happiness %>% select(entity, suicide, happiness)
+```
+```{r}
+head(suicide_happiness)
+```
+
+An interesting exploration of those variables would be to test the correlation of a higher score of happiness and a smaller number of death by suicide.
+
+# References

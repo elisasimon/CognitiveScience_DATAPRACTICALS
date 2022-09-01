@@ -1,0 +1,80 @@
+---
+title: "(W5) data visualization"
+author: "Elisa Simon"
+date: '2022-08-31'
+output: github_document
+bibliography: references.bib
+---
+
+# Marriage rate per 1000 habitants
+
+(Dataset source: @ortiz-ospina_marriages_2020)
+
+```{r, include=FALSE}
+library(readr)
+library(janitor)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+marriage_rate_per_1000_inhabitants <- read_csv("marriage-rate-per-1000-inhabitants.csv")
+marriage <- clean_names(marriage_rate_per_1000_inhabitants)
+marriage <- marriage%>% rename(marriage_rate = crude_marriage_rate_per_1_000_inhabitants)
+```
+
+```{r, echo=FALSE}
+head(marriage) 
+```
+
+## Description of content and data types
+
+| Variable name     |          **Description**         | **R data type** |  **Statistical data** |
+|-------------------|:--------------------------------:|:---------------:|:---------------------:|
+| **Entity**        |      represents the country      |    character    |  qualitative nominale |
+| **Code**          |       code for the country       |    character    |  qualitative nominale |
+| **Year**          |               year               |     numeric     | quantitative discrete |
+| **Marriage rate** | marriage rate per 1000 habitants |     numeric     | quantitative discrete |
+
+
+## Wide/long transformation
+
+The marriage data set is in long format.
+```{r, echo=FALSE}
+marriage_wide <- spread(marriage, year, marriage_rate)
+head(marriage_wide)
+```
+## Data in tidy format ?
+
+Data are tidy (in the original long format)
+I additionally removed the 'code' column as it was redondant.
+
+```{r, echo=FALSE}
+marriage_clean <- marriage %>% select(!code)
+head(marriage_clean)
+```
+
+## Separate and unite
+
+The data set I choose is not really pertinent to do so. Therefore, I decided to first unit the entity and code variables and then to separate them again.
+
+```{r, include=FALSE}
+marriage_united <- unite(marriage, col = 'Codentity', c('entity', 'code'), sep = ", ", remove=TRUE)
+marriage_separated <- separate(marriage_united, col = 'Codentity', c('entity', 'code'), sep = ", ", remove=TRUE)
+```
+
+```{r, echo=FALSE}
+head(marriage_united)
+head(marriage_separated)
+```
+
+## Create a plot
+
+```{r, echo=TRUE}
+ggplot(marriage_clean, aes(year, marriage_rate)) +
+  geom_point() +
+  geom_smooth(method=lm, color= "red", se=FALSE) +
+  theme_bw() +
+  coord_cartesian (ylim= c(0, 30))
+```
+
+# References
+

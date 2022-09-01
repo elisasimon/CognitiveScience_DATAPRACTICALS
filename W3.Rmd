@@ -1,0 +1,107 @@
+---
+title: "(W3) Data "
+author: "Elisa Simon"
+date: "8/30/2022"
+output: github_document
+bibliography: references.bib
+---
+
+# Swiss fertility, coffee and chocolate.
+
+This report presents three data sets and their variables.
+
+
+## Swiss fertility and socioeconomic indicators (swiss)
+
+The _swiss_ data set in the R package 'datasets' provides information about fertility and socioeconomic indicators in different places in Switzerland in 1988.
+
+Here are the first rows of the data set:
+
+```{r, include=FALSE}
+data(swiss)
+```
+```{r, echo = FALSE}
+head(swiss)
+```
+
+
+### Data types
+
+The table below describes the R and statistical data types of the variables:
+
+|                  | **R data type** | **Statistical data type** |
+|------------------|:---------------:|:-------------------------:|
+| Fertility        |     numeric     |    quantitative discrete  |
+| Agriculture      |     numeric     |    quantitative discrete  |
+| Examination      |     numeric     |    quantitative discrete  |
+| Education        |     numeric     |    quantitative discrete  |
+| Catholic         |     numeric     |    quantitative discrete  |
+| Infant Mortality |     numeric     |    quantitative discrete  |
+
+_(Sadly, all the variables are of the same types)_
+
+
+## Coffee and coding
+
+This data set by @najelkotob_coffee_2018 contains data about coffee consumption and coding habits.
+
+Here are the first rows of the data set:
+
+```{r, include=FALSE}
+library(readr)
+CoffeeAndCodeLT2018_CoffeeAndCodeLT2018 <- read_csv("CoffeeAndCodeLT2018 - CoffeeAndCodeLT2018.csv")
+```
+
+```{r, echo = FALSE}
+head(CoffeeAndCodeLT2018_CoffeeAndCodeLT2018)
+```
+
+### Data types
+
+The table below describes the R and statistical data types of the variables:
+
+|                       | **R data type** | **Statistical data type** |
+|-----------------------|:---------------:|:-------------------------:|
+| Coding hours          |     numeric     |   quantitative discrete   |
+| Coffee cups per day   |     numeric     |   quantitative discrete   |
+| Coffee time           |    character    |    qualitative nominal    |
+| Coding without coffee |    character    |    qualitative nominal    |
+| Coffee type           |    character    |    qualitative nominal    |
+| Coffee solve bugs     |    character    |    qualitative ordinal    |
+| Gender                |    character    |    qualitative nominal    |
+| Country               |    character    |    qualitative nominal    |
+| Age range             |    character    |    qualitative ordinal    |
+
+
+## Chocolate
+
+This data set is by @narejo_chocolate_2020 and contains data on chocolate.
+
+Here are the first rows: 
+```{r, include = FALSE}
+library(readr)
+chocolate <- read_csv("chocolate.csv")
+```
+```{r, echo=FALSE}
+head(chocolate)
+```
+
+
+### Data types
+
+The table below describes the R and statistical data types of the variables:
+
+|                      | **R data type** | **Statistical data type** |
+|----------------------|:---------------:|:-------------------------:|
+| Company              |    character    |    qualitative nominal    |
+| Specific bean origin |    character    |    qualitative nominal    |
+| REF                  |     numeric     |   quantitative discrete   |
+| Review date          |     numeric     |   quantitative discrete   |
+| Cocoa percentage     |    character    |   quantitative discrete   |
+| Company location     |    character    |    qualitative nominal    |
+| Rating               |     numeric     |   quantitative discrete   |
+| Bean type            |    character    |    qualitative nominal    |
+| Broad bean origin    |    character    |    qualitative nominal    |
+
+
+# References
