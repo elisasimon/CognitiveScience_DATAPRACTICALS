@@ -14,3 +14,13 @@ Here is a little list of the different data practicals: (W2) means it is the sec
 + [You can probably drinks on weekdays and don't fail (W8)](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W8.md)
 
 Hope you'll have fun. I did. Sometimes.
+
+P.S. If you need to see the R codes, here is another list:
+
+- [W2](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W2.Rmd)
+- [W3](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W3.Rmd)
+- [W4](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W4.Rmd)
+- [W5](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W5.Rmd)
+- [W6](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W6.Rmd)
+- [W7](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W7.Rmd)
+- [W8](https://github.com/elisasimon/CognitiveScience_DATAPRACTICALS/blob/main/W8.Rmd)
